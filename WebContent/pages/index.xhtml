@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:p="http://primefaces.org/ui"
+   xmlns:pm="http://primefaces.org/mobile">
+ 	<h:head>
+ 	</h:head>
+    <h:body>
+   		<pm:page id="main">
+   			<pm:header title="Customer List">
+   					<f:facet name="left">
+	   					<h:form>
+		   					<p:commandButton icon="ui-icon-plus" value="Create" styleClass="ui-btn-inline" action="#{mainBean.creationForm}" update=":customerForm:customer_cr">
+		   						<p:ajax />
+		   					</p:commandButton>
+		   				</h:form>
+	   				</f:facet>
+	   				<f:facet name="right">
+	   					<p:commandButton id="btn-menu" icon="ui-icon-grid" type="button" />
+	   				</f:facet>
+	   			
+   			</pm:header>
+   			<pm:content id="content">
+   				<h:form id="form">
+   					<p:growl id="msgs" showDetail="true" />
+	   				<p:dataList id="customerList" value="#{mainBean.fetchedCustomers}" var="customer">
+	   					<p:ajax event="swipeleft" listener="#{mainBean.swipeCustomer}" oncomplete="PF('confirmDialog').show()" update=":main:dialogForm:dni"/>
+       		 			<p:ajax event="swiperight" listener="#{mainBean.swipeCustomer}" oncomplete="PF('confirmDialog').show()" update=":main:dialogForm:dni"/>
+        				<p:ajax event="taphold" listener="#{mainBean.tapCustomer}" oncomplete="document.getElementById('main:form:updatebutton').click();"/>
+	    				<h:outputText value="#{customer.DNI}, #{customer.firstName} #{customer.lastName}"/>
+	    			</p:dataList>
+	    			<p:commandButton id="updatebutton" action="#{mainBean.navigateToUpdate}" style="display: none" update=":customerForm:customer_cr">
+	    				<p:ajax />
+	    			</p:commandButton>
+	    		</h:form>
+   			</pm:content>
+   			
+   			<p:dialog id="deleteDialog" header="Confirm delete" widgetVar="confirmDialog">
+	    		<h:form id="dialogForm">
+	    			<h:messages id="message" />
+	    			Are you sure you want to delete the customer with DNI: <h:outputText id="dni" value="#{mainBean.selectedCustomer.DNI}"/>?
+				    <p:commandButton value="Yes" type="button" icon="ui-icon-check">
+				    	<p:ajax listener="#{mainBean.delete}" oncomplete="PF('confirmDialog').hide()" update=":main:form"/> 
+				    </p:commandButton>
+				    <p:commandButton value="No" type="button"  icon="ui-icon-cross" oncomplete="PF('confirmDialog').hide()">
+				    	<p:ajax  oncomplete="PF('confirmDialog').hide()" update=":main:form"/>
+				    </p:commandButton>
+				</h:form>
+			</p:dialog>
+   			
+   			<p:overlayPanel for="btn-menu" widgetVar="pnl" at="right" showEffect="overlay" dynamic="true" styleClass="ui-listview-inset ui-corner-all ui-group-theme-b">
+		    	<ui:include src="/menu/lateral_menu_overlay.xhtml"/>
+			</p:overlayPanel>
+   		</pm:page>
+   		
+   		<pm:page id="customerForm">
+   			<pm:header title="Customer Form">
+   				<f:facet name="left">
+	   				<h:form>
+		   				<p:commandButton icon="ui-icon-back" value="Back" styleClass="ui-btn-inline" action="#{mainBean.backToMain}">
+		   					<p:ajax />
+		   				</p:commandButton>
+		 			</h:form>
+	   			</f:facet>
+   				<f:facet name="right">
+   					<p:commandButton id="btn-menu2" icon="ui-icon-grid" type="button" />
+   				</f:facet>
+   			</pm:header>
+   			<pm:content>
+   				<h:form id="customer_cr">
+   					<h2><h:outputText value="Creation" rendered="#{empty mainBean.selectedCustomer.DNI}"/>
+   					<h:outputText value="Update" rendered="#{not empty mainBean.selectedCustomer.DNI}"/></h2>
+   					<br/>
+   					<h:outputText value="DNI:"/><br/>
+   					<p:inputText size="10" value="#{mainBean.selectedCustomer.DNI}"/><br/>
+   					<h:outputText value="First name:"/><br/>
+   					<p:inputText value="#{mainBean.selectedCustomer.firstName}"/><br/>
+   					<h:outputText value="Last name:"/><br/>
+   					<p:inputText value="#{mainBean.selectedCustomer.lastName}"/><br/>
+   					<p:commandButton icon="ui-icon-check" value="Save" styleClass="ui-btn-inline" action="#{mainBean.save}" process="@form" update=":main:form:customerList"/>
+   				</h:form>
+   			</pm:content>
+   			
+   		</pm:page>
+			
+    </h:body>
+</html>
