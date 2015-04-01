@@ -16,8 +16,7 @@
 	<listener>
   		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	
-	<!-- Change to "Production" when you are ready to deploy -->
+
 	<context-param>
 		<param-name>primefaces.THEME</param-name>
 		<param-value>bootstrap</param-value>
@@ -26,7 +25,7 @@
  
 	<!-- Welcome page -->
 	<welcome-file-list>
-		<welcome-file>pages/index.xhtml</welcome-file>
+		<welcome-file>pages/home.xhtml</welcome-file>
 	</welcome-file-list>
  
 	<!-- JSF mapping -->

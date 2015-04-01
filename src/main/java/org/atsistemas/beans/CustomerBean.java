@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @ManagedBean
 @SessionScoped
-public class MainBean implements Serializable {
+public class CustomerBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:p="http://primefaces.org/ui"
+   xmlns:pm="http://primefaces.org/mobile">
+ 	<h:head>
+ 	</h:head>
+    <h:body>
+   		<pm:page id="home">
+   			<pm:header title="Example Application">
+	   				<f:facet name="right">
+	   					<p:commandButton id="btn-menu" icon="ui-icon-grid" type="button" />
+	   				</f:facet>
+   			</pm:header>
+   			<pm:content id="content">
+   				<h2>App to test PrimeFaces Mobile and Spring Web Flow</h2>
+   				Open the menu with the button in the upper right corner to start navigating.
+   			</pm:content>
+   			
+   			<p:overlayPanel for="btn-menu" widgetVar="pnl" at="right" showEffect="overlay" dynamic="true" styleClass="ui-listview-inset ui-corner-all ui-group-theme-b">
+		    	<ui:include src="/menu/lateral_menu_overlay.xhtml"/>
+			</p:overlayPanel>
+   		</pm:page>
+	</h:body>
+</html>

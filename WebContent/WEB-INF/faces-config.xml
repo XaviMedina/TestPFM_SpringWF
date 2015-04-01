@@ -5,8 +5,14 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
 
 <managed-bean>
-	<managed-bean-name>mainBean</managed-bean-name>
-	<managed-bean-class>org.atsistemas.beans.MainBean</managed-bean-class>
+	<managed-bean-name>customerBean</managed-bean-name>
+	<managed-bean-class>org.atsistemas.beans.CustomerBean</managed-bean-class>
+	<managed-bean-scope>session</managed-bean-scope>
+</managed-bean>
+
+<managed-bean>
+	<managed-bean-name>shopBean</managed-bean-name>
+	<managed-bean-class>org.atsistemas.beans.ShopBean</managed-bean-class>
 	<managed-bean-scope>session</managed-bean-scope>
 </managed-bean>
 

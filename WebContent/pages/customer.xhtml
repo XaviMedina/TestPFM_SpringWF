@@ -14,7 +14,7 @@
    			<pm:header title="Customer List">
    					<f:facet name="left">
 	   					<h:form>
-		   					<p:commandButton icon="ui-icon-plus" value="Create" styleClass="ui-btn-inline" action="#{mainBean.creationForm}" update=":customerForm:customer_cr">
+		   					<p:commandButton icon="ui-icon-plus" value="Create" styleClass="ui-btn-inline" action="#{customerBean.creationForm}" update=":customerForm:customer_cr">
 		   						<p:ajax />
 		   					</p:commandButton>
 		   				</h:form>
@@ -27,13 +27,13 @@
    			<pm:content id="content">
    				<h:form id="form">
    					<p:growl id="msgs" showDetail="true" />
-	   				<p:dataList id="customerList" value="#{mainBean.fetchedCustomers}" var="customer">
-	   					<p:ajax event="swipeleft" listener="#{mainBean.swipeCustomer}" oncomplete="PF('confirmDialog').show()" update=":main:dialogForm:dni"/>
-       		 			<p:ajax event="swiperight" listener="#{mainBean.swipeCustomer}" oncomplete="PF('confirmDialog').show()" update=":main:dialogForm:dni"/>
-        				<p:ajax event="taphold" listener="#{mainBean.tapCustomer}" oncomplete="document.getElementById('main:form:updatebutton').click();"/>
+	   				<p:dataList id="customerList" value="#{customerBean.fetchedCustomers}" var="customer">
+	   					<p:ajax event="swipeleft" listener="#{customerBean.swipeCustomer}" oncomplete="PF('confirmDialog').show()" update=":main:dialogForm:dni"/>
+       		 			<p:ajax event="swiperight" listener="#{customerBean.swipeCustomer}" oncomplete="PF('confirmDialog').show()" update=":main:dialogForm:dni"/>
+        				<p:ajax event="taphold" listener="#{customerBean.tapCustomer}" oncomplete="document.getElementById('main:form:updatebutton').click();"/>
 	    				<h:outputText value="#{customer.DNI}, #{customer.firstName} #{customer.lastName}"/>
 	    			</p:dataList>
-	    			<p:commandButton id="updatebutton" action="#{mainBean.navigateToUpdate}" style="display: none" update=":customerForm:customer_cr">
+	    			<p:commandButton id="updatebutton" action="#{customerBean.navigateToUpdate}" style="display: none" update=":customerForm:customer_cr">
 	    				<p:ajax />
 	    			</p:commandButton>
 	    		</h:form>
@@ -42,9 +42,9 @@
    			<p:dialog id="deleteDialog" header="Confirm delete" widgetVar="confirmDialog">
 	    		<h:form id="dialogForm">
 	    			<h:messages id="message" />
-	    			Are you sure you want to delete the customer with DNI: <h:outputText id="dni" value="#{mainBean.selectedCustomer.DNI}"/>?
+	    			Are you sure you want to delete the customer with DNI: <h:outputText id="dni" value="#{customerBean.selectedCustomer.DNI}"/>?
 				    <p:commandButton value="Yes" type="button" icon="ui-icon-check">
-				    	<p:ajax listener="#{mainBean.delete}" oncomplete="PF('confirmDialog').hide()" update=":main:form"/> 
+				    	<p:ajax listener="#{customerBean.delete}" oncomplete="PF('confirmDialog').hide()" update=":main:form"/> 
 				    </p:commandButton>
 				    <p:commandButton value="No" type="button"  icon="ui-icon-cross" oncomplete="PF('confirmDialog').hide()">
 				    	<p:ajax  oncomplete="PF('confirmDialog').hide()" update=":main:form"/>
@@ -61,7 +61,7 @@
    			<pm:header title="Customer Form">
    				<f:facet name="left">
 	   				<h:form>
-		   				<p:commandButton icon="ui-icon-back" value="Back" styleClass="ui-btn-inline" action="#{mainBean.backToMain}">
+		   				<p:commandButton icon="ui-icon-back" value="Back" styleClass="ui-btn-inline" action="#{customerBean.backToMain}">
 		   					<p:ajax />
 		   				</p:commandButton>
 		 			</h:form>
@@ -72,16 +72,16 @@
    			</pm:header>
    			<pm:content>
    				<h:form id="customer_cr">
-   					<h2><h:outputText value="Creation" rendered="#{empty mainBean.selectedCustomer.DNI}"/>
-   					<h:outputText value="Update" rendered="#{not empty mainBean.selectedCustomer.DNI}"/></h2>
+   					<h2><h:outputText value="Creation" rendered="#{empty customerBean.selectedCustomer.DNI}"/>
+   					<h:outputText value="Update" rendered="#{not empty customerBean.selectedCustomer.DNI}"/></h2>
    					<br/>
    					<h:outputText value="DNI:"/><br/>
-   					<p:inputText size="10" value="#{mainBean.selectedCustomer.DNI}"/><br/>
+   					<p:inputText size="10" value="#{customerBean.selectedCustomer.DNI}"/><br/>
    					<h:outputText value="First name:"/><br/>
-   					<p:inputText value="#{mainBean.selectedCustomer.firstName}"/><br/>
+   					<p:inputText value="#{customerBean.selectedCustomer.firstName}"/><br/>
    					<h:outputText value="Last name:"/><br/>
-   					<p:inputText value="#{mainBean.selectedCustomer.lastName}"/><br/>
-   					<p:commandButton icon="ui-icon-check" value="Save" styleClass="ui-btn-inline" action="#{mainBean.save}" process="@form" update=":main:form:customerList"/>
+   					<p:inputText value="#{customerBean.selectedCustomer.lastName}"/><br/>
+   					<p:commandButton icon="ui-icon-check" value="Save" styleClass="ui-btn-inline" action="#{customerBean.save}" process="@form" update=":main:form:customerList"/>
    				</h:form>
    			</pm:content>
    			
